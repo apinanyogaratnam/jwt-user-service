@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/apinanyogaratnam/jwt-user-service/jwt"
+	"github.com/apinanyogaratnam/jwt-user-service/jwt-protobuf/jwt"
 )
 
 func main() {
@@ -23,11 +23,11 @@ func main() {
 
 	c := jwt.NewJWTServiceClient(conn)
 
-	message := jwt.JWTRequest{
+	message := jwt.GetTokenRequest{
 		Id: 1,
 	}
 
-	var response *jwt.JWTResponse;
+	var response *jwt.GetTokenResponse;
 
 	response, err = c.GetToken(context.Background(), &message)
 	if err != nil {
