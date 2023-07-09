@@ -23,16 +23,29 @@ func main() {
 
 	c := jwt.NewJWTServiceClient(conn)
 
-	message := jwt.GetTokenRequest{
+	getTokenRequestMessage := jwt.GetTokenRequest{
 		Id: 1,
 	}
 
-	var response *jwt.GetTokenResponse;
+	var getTokenResponse *jwt.GetTokenResponse;
 
-	response, err = c.GetToken(context.Background(), &message)
+	getTokenResponse, err = c.GetToken(context.Background(), &getTokenRequestMessage)
 	if err != nil {
 		log.Fatalln("Error when calling GetToken: ", err)
 	}
 
-	log.Printf("Response from server: %s", response.Token);
+	log.Println("Received Token:", getTokenResponse.Token);
+
+	validateTokenRequestMessage := jwt.ValidateTokenRequest{
+		Token: getTokenResponse.Token,
+	}
+
+	var validateTokenResponse *jwt.ValidateTokenResponse;
+
+	validateTokenResponse, err = c.ValidateToken(context.Background(), &validateTokenRequestMessage)
+	if err != nil {
+		log.Fatalln("Error when calling ValidateToken: ", err)
+	}
+
+	log.Println("Token validated:", validateTokenResponse.Valid);
 }
