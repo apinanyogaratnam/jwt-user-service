@@ -6,3 +6,6 @@ proto:
 
 start:
 	go run main.go
+
+update-submodule:
+	git submodule update --remote --merge
