@@ -12,7 +12,7 @@ import (
 
 func main() {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":9000", grpc.WithTransportCredentials(
+	conn, err := grpc.Dial("host.docker.internal:9000", grpc.WithTransportCredentials(
 		insecure.NewCredentials(),
 	))
 	if err != nil {
